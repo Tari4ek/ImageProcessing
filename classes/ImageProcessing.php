@@ -11,26 +11,52 @@ class ImageProcessing
 
     public function __construct($file)
     {
-        $this->loadingImage($file);
+        if(file_exists($file)) {
+            $this->loadingImage($file);
+        }
     }
 
     public function loadingImage($file)
     {
         $this->image_mime = image_type_to_mime_type(exif_imagetype($file));
-var_dump($this->image_mime);
+
         switch ($this->image_mime) {
             case "image/gif":
                 $this->img = imagecreatefromgif($file);
-                echo "Image is a gif";
+                echo "Image is a gif </br>";
 
                 break;
             case "image/jpeg":
                 $this->img = imagecreatefromjpeg($file);
-                echo "Image is a jpeg";
+                echo "Image is a jpeg </br>";
                 break;
             case "image/png":
                 $this->img = imagecreatefrompng($file);
-                echo "Image is a png";
+                echo "Image is a png </br>";
+                break;
+            default:
+                echo "Не тот формат изображения (допустимые JPEG, PNG, GIF)";
+        }
+    }
+
+    public function saveImage($file)
+    {
+        switch ($this->image_mime) {
+            case "image/gif":
+                imagegif($this->img, $file);
+                imagedestroy($this->img);
+                echo "Картинка gif сохранина </br>";
+
+                break;
+            case "image/jpeg":
+                imagejpeg($this->img, $file);
+                imagedestroy($this->img);
+                echo "Картинка jpeg сохранина</br>";
+                break;
+            case "image/png":
+                imagepng($this->img, $file);
+                imagedestroy($this->img);
+                echo "Картинка png сохранина</br>";
                 break;
             default:
                 echo "Не тот формат изображения (допустимые JPEG, PNG, GIF)";
@@ -42,10 +68,20 @@ var_dump($this->image_mime);
        return imagesx($this->img);
     }
 
-    public function gerHeight()
+    public function getHeight()
     {
        return imagesy($this->img);
     }
+
+    public function resize($width, $height)
+    {
+        $image_p = imagecreatetruecolor($width, $height);
+        imagecopyresampled($image_p,  $this->img, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
+        $this->img = $image_p;
+
+    }
+
+
 
 
 }
