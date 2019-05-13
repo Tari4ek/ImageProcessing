@@ -1,10 +1,7 @@
 <?php
 
-$file = 'Desert.jpg';
-$image_mime = image_type_to_mime_type(exif_imagetype($file));
+require_once "classes/ImageProcessing.php";
 
-$h = exif_imagetype($file);
-
-var_dump($image_mime);
-
-var_dump($h);
+$img = new ImageProcessing('Desert.jpg');
+$uu = getimagesize('Desert.jpg');
+var_dump($uu);
