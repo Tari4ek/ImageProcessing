@@ -11,7 +11,7 @@ class ImageProcessing
 
     public function __construct($file)
     {
-        if(file_exists($file)) {
+        if (file_exists($file)) {
             $this->loadingImage($file);
         }
     }
@@ -65,20 +65,18 @@ class ImageProcessing
 
     public function getWidth()
     {
-       return imagesx($this->img);
+        return imagesx($this->img);
     }
 
     public function getHeight()
     {
-       return imagesy($this->img);
+        return imagesy($this->img);
     }
 
     public function resize($width, $height)
     {
         $image_p = imagecreatetruecolor($width, $height);
-        imagecopyresampled($image_p,  $this->img, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
+        imagecopyresampled($image_p, $this->img, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
         $this->img = $image_p;
-
     }
-
 }
