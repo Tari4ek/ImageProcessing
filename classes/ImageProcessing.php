@@ -45,18 +45,17 @@ class ImageProcessing
             case "image/gif":
                 imagegif($this->img, $file);
                 imagedestroy($this->img);
-                echo "Картинка gif сохранина </br>";
-
+                echo "Картинка gif сохранена </br>";
                 break;
             case "image/jpeg":
                 imagejpeg($this->img, $file);
                 imagedestroy($this->img);
-                echo "Картинка jpeg сохранина</br>";
+                echo "Картинка jpeg сохранена</br>";
                 break;
             case "image/png":
                 imagepng($this->img, $file);
                 imagedestroy($this->img);
-                echo "Картинка png сохранина</br>";
+                echo "Картинка png сохранена</br>";
                 break;
             default:
                 echo "Не тот формат изображения (допустимые JPEG, PNG, GIF)";
@@ -80,10 +79,24 @@ class ImageProcessing
         $this->img = $image_p;
     }
 
-    function borderImage($file, $color, $width, $height) {
-        $imagick = new \Imagick(realpath($file));
-        $imagick->borderImage($color, $width, $height);
-        header("Content-Type: image/jpg");
-        echo $imagick->getImageBlob();
+
+    public function cropImage($file, $width, $height, $startX, $startY, $name)
+    {
+        $imagick = new Imagick($file);
+        $imagick->cropImage($width, $height, $startX, $startY);
+        file_put_contents($name . '.jpg', $imagick);
+        echo "Картинка сохранена</br>";
+
     }
+
+    public function thumbnailImage($file, $w, $h)
+    {
+        $imagick = new \Imagick(realpath($file));
+        $imagick->setbackgroundcolor('rgb(64, 64, 64)');
+        $imagick->thumbnailImage($w, $h, true, true);
+        file_put_contents('gdfgfd.jpg', $imagick);
+        $imagick->destroy();
+    }
+
+
 }
