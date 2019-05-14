@@ -79,4 +79,11 @@ class ImageProcessing
         imagecopyresampled($image_p, $this->img, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
         $this->img = $image_p;
     }
+
+    function borderImage($file, $color, $width, $height) {
+        $imagick = new \Imagick(realpath($file));
+        $imagick->borderImage($color, $width, $height);
+        header("Content-Type: image/jpg");
+        echo $imagick->getImageBlob();
+    }
 }
