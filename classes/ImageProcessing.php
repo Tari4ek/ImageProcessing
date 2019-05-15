@@ -82,20 +82,20 @@ class ImageProcessing
 
     public function cropImage($file, $width, $height, $startX, $startY, $name)
     {
-        $imagick = new Imagick($file);
+        $imagick = new Imagick(realpath($file));
         $imagick->cropImage($width, $height, $startX, $startY);
         file_put_contents($name . '.jpg', $imagick);
         echo "Картинка сохранена</br>";
 
     }
 
-    public function thumbnailImage($file, $w, $h)
+    public function thumbnailImage($file, $w, $h, $namefile)
     {
-        $imagick = new \Imagick(realpath($file));
-        $imagick->setbackgroundcolor('rgb(64, 64, 64)');
-        $imagick->thumbnailImage($w, $h, true, true);
-        file_put_contents('gdfgfd.jpg', $imagick);
+        $imagick = new Imagick(realpath($file));
+        $imagick->thumbnailImage($w, $h, false, false);
+        file_put_contents($namefile . '.jpg', $imagick);
         $imagick->destroy();
+        echo "Картинка сохранена</br>";
     }
 
 
