@@ -85,14 +85,15 @@ class ImageProcessing
         $imagick = new Imagick(realpath($file));
         $imagick->cropImage($width, $height, $startX, $startY);
         file_put_contents($name . '.jpg', $imagick);
+        $imagick->destroy();
         echo "Картинка сохранена</br>";
 
     }
 
-    public function thumbnailImage($file, $w, $h, $namefile)
+    public function thumbnail($file, $h, $w, $namefile)
     {
-        $imagick = new Imagick(realpath($file));
-        $imagick->thumbnailImage($w, $h, false, false);
+        $imagick = new \Imagick(realpath($file));
+        $imagick->thumbnailImage( $h, $w, false, false);
         file_put_contents($namefile . '.jpg', $imagick);
         $imagick->destroy();
         echo "Картинка сохранена</br>";
