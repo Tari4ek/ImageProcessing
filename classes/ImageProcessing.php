@@ -81,6 +81,15 @@ class ImageProcessing implements IGd, IImagick
     }
 
 
+public  function creatImg($width, $height)
+{
+    $im = imagecreatetruecolor($width, $height);
+    imagecolorallocate($im, 0, 0, 0);
+    $this->img = $im;
+
+}
+
+
     public function cropImage($file, $width, $height, $startX, $startY, $name)
     {
         $imagick = new Imagick(realpath($file));
