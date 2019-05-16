@@ -1,7 +1,7 @@
 <?php
 
 
-class ImageProcessing
+class ImageProcessing implements IGd, IImagick
 {
 
     public $img;
@@ -13,6 +13,7 @@ class ImageProcessing
     {
         if (file_exists($file)) {
             $this->loadingImage($file);
+
         }
     }
 

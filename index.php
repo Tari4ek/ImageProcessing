@@ -1,6 +1,8 @@
 <?php
 
 require_once "classes/ImageProcessing.php";
+require_once "classes/IGd.php";
+require_once "classes/IImagick.php";
 
 
 function debug($data)
@@ -13,6 +15,10 @@ $img = new ImageProcessing('Desert.jpg');
 
 $img->resize(150, 40);
 $img->saveImage('res.jpg');
+
+
+
+
 
 
 $img->cropImage('Desert.jpg', 500, 300, 500, 300, 'yty');
